@@ -9,7 +9,7 @@ I like understanding how things work underneath, not just calling the function. 
 - 🔭 Currently working on **ECGenius**, an AI-powered cardiac diagnostic platform ([ecgenius.life](https://ecgenius.life))
 - 🌐 Building **full-stack applications** — React + Node.js/Express + MongoDB, with Flask/Python APIs powering ML features
 - 🧠 Exploring **ML / MLOps** — built a U-Net pipeline to digitize ECG images into clean time-series signals
-- 🧩 Competitive programmer — **1760 on LeetCode**
+- 🧩 Competitive programmer
 - 📫 Reach me at **pundkardevashish@gmail.com**
 
 ---
