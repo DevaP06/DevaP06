@@ -1,10 +1,23 @@
-# Hi, I'm Devashish Pundkar 👋
+<div align="center">
+<img src="assets/portrait.svg" width="460" alt="ASCII portrait of Devashish Pundkar, hand-drawn from a photo and typed on load" />
+</div>
+
+<h1 align="center">Devashish Pundkar</h1>
+
+<div align="center">
 
 ![Profile Views](https://komarev.com/ghpvc/?username=DevaP06&label=Profile%20Views&color=0e75b6&style=flat)
 
-**Computer Science undergrad @ IIIT Sri City** • problem solver • builder of things that survive contact with real, messy data.
+</div>
 
-I like understanding how things work underneath, not just calling the function. That curiosity took me from Python libraries into DSA, into building full-stack AI-powered products, and lately into ML systems and MLOps.
+> **Computer Science undergrad @ IIIT Sri City** • problem solver • builder of things that survive contact with real, messy data.
+
+<img src="assets/h-about.svg" width="340" alt="about" />
+
+I like understanding how things work underneath, not just calling the<br>
+function. That curiosity took me from Python libraries into DSA, into<br>
+building full-stack AI-powered products, and lately into ML systems and<br>
+MLOps.
 
 - 🔭 Currently working on **ECGenius**, an AI-powered cardiac diagnostic platform ([ecgenius.life](https://ecgenius.life))
 - 🌐 Building **full-stack applications** — React + Node.js/Express + MongoDB, with Flask/Python APIs powering ML features
@@ -14,7 +27,7 @@ I like understanding how things work underneath, not just calling the function. 
 
 ---
 
-## 🛠️ Skills & Technologies
+<img src="assets/h-skills.svg" width="340" alt="skills & technologies" />
 
 **Languages**
 
@@ -49,7 +62,7 @@ I like understanding how things work underneath, not just calling the function. 
 
 ---
 
-## 🔗 Connect 
+<img src="assets/h-connect.svg" width="340" alt="connect" />
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/Devashish)
 [![LeetCode](https://img.shields.io/badge/LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black)](https://leetcode.com/DevaP2606)
@@ -59,21 +72,29 @@ I like understanding how things work underneath, not just calling the function. 
 
 ---
 
-## 📊 GitHub Stats
+<img src="assets/h-stats.svg" width="340" alt="github stats" />
+
+<samp>Drawn by <a href="scripts/generate_stats.py">a script in this repo</a> from the GraphQL API on a nightly schedule — no third-party image services.</samp>
 
 <div align="center">
+<img src="assets/stats.svg" width="460" alt="total contributions in the last year, with a weekly sparkline" />
 
-![Devashish's GitHub stats](https://github-readme-stats.vercel.app/api?username=DevaP06&show_icons=true&theme=tokyonight&hide_border=true&count_private=true)
+<br><br>
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=DevaP06&layout=compact&theme=tokyonight&hide_border=true)
+<img src="assets/streak.svg" width="460" alt="current streak and longest streak" />
 
-![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=DevaP06&theme=tokyonight&hide_border=true)
+<br><br>
 
+<img src="assets/langs.svg" width="460" alt="top languages by bytes and by repo" />
+
+<br><br>
+
+<img src="assets/year.svg" alt="one character per day for the last year, shaded on the portrait's own ramp" />
 </div>
 
 ---
 
-## 👻 Pacman Contribution Graph
+<img src="assets/h-contrib.svg" width="340" alt="contribution graph" />
 
 <!-- pacman -->
 <picture>
@@ -86,7 +107,6 @@ I like understanding how things work underneath, not just calling the function. 
 </picture>
 
 ---
-
 
 <div align="center">
   <i>Always poking at the parts I don't understand until they click.</i>

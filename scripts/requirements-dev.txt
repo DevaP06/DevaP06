@@ -1,0 +1,10 @@
+# Local-only tooling to regenerate the portrait and heading SVGs.
+# Not needed in CI: refresh-stats.yml runs generate_stats.py, which is
+# standard-library only on purpose (see that script's docstring).
+pillow
+numpy
+opencv-python-headless
+rembg
+onnxruntime
+fonttools
+brotli

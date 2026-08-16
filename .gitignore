@@ -1,0 +1,9 @@
+# raw font release -- only the subsets in fonts/subset/ are committed, see fonts/README.md
+fonts/jbm/
+fonts/JetBrainsMono.zip
+
+# python
+__pycache__/
+*.pyc
+
+# rembg's downloaded background-removal model (~176MB, cached in the user profile, not the repo)
