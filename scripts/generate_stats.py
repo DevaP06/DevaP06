@@ -14,9 +14,11 @@ Usage:
   python scripts/generate_stats.py --offline scripts/fixtures/demo_data.json   (no network, for local testing)
 """
 import base64
+import bisect
 import datetime
 import json
 import os
+import statistics
 import sys
 import urllib.request
 from pathlib import Path
@@ -265,6 +267,30 @@ def draw_langs(langs):
     return "\n".join(out)
 
 
+def level_mapper(nonzero_counts, n):
+    """Map a day's count to a 1..n ramp level by where it falls in the
+    observed distribution of active days, not linearly against the single
+    peak day. A linear-to-peak scale means one big push day (say, 20
+    commits) crushes every ordinary 1-3 commit day down to the faintest
+    glyph in the ramp -- which is exactly what made the grid unreadable:
+    almost everything is a real, active day, but almost nothing showed.
+    """
+    if not nonzero_counts:
+        return lambda c: 0
+    uniq = sorted(set(nonzero_counts))
+    if len(uniq) == 1:
+        only = uniq[0]
+        return lambda c: n if c == only else 0
+    cuts = statistics.quantiles(nonzero_counts, n=n, method="inclusive")
+
+    def level(c):
+        if not c:
+            return 0
+        return min(bisect.bisect_right(cuts, c) + 1, n)
+
+    return level
+
+
 def draw_year(days):
     # one ramp character per day, laid out the same way GitHub's own grid
     # does: 7 rows (Sun..Sat) x N week-columns.
@@ -278,20 +304,17 @@ def draw_year(days):
     weeks = len(counts) // 7
 
     nonzero = [c for c in counts if c]
-    peak = max(nonzero) if nonzero else 1
     n = len(RAMP) - 1
+    level = level_mapper(nonzero, n)
 
     def glyph(c):
-        if not c:
-            return RAMP[0]
-        level = 1 + round((c / peak) * (n - 1))
-        return RAMP[min(level, n)]
+        return RAMP[level(c)]
 
     grid = [[None] * weeks for _ in range(7)]
     for idx, c in enumerate(counts):
         grid[idx % 7][idx // 7] = glyph(c)
 
-    char_w = 8.0
+    char_w = 10.0
     row_h = char_w / 0.48
     W = weeks * char_w
     H = 7 * row_h

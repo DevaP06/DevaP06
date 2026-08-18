@@ -86,25 +86,17 @@ MLOps.
 <br><br>
 
 <img src="assets/langs.svg" width="460" alt="top languages by bytes and by repo" />
-
-<br><br>
-
-<img src="assets/year.svg" alt="one character per day for the last year, shaded on the portrait's own ramp" />
 </div>
 
 ---
 
 <img src="assets/h-contrib.svg" width="340" alt="contribution graph" />
 
-<!-- pacman -->
-<picture>
-    <source media="(prefers-color-scheme: dark)"
-            srcset="https://raw.githubusercontent.com/DevaP06/DevaP06/output/pacman-contribution-graph-dark.svg">
-    <source media="(prefers-color-scheme: light)"
-            srcset="https://raw.githubusercontent.com/DevaP06/DevaP06/output/pacman-contribution-graph.svg">
-    <img alt="pacman contribution graph"
-         src="https://raw.githubusercontent.com/DevaP06/DevaP06/output/pacman-contribution-graph.svg">
-</picture>
+<samp>One character per day for the last year, shaded on the portrait's own ramp — same script, same font, no separate service.</samp>
+
+<div align="center">
+<img src="assets/year.svg" alt="one character per day for the last year, shaded on the portrait's own ramp" />
+</div>
 
 ---
 
