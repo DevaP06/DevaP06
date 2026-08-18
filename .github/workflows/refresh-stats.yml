@@ -24,9 +24,22 @@ jobs:
           GH_LOGIN: ${{ github.repository_owner }}
         run: python3 scripts/generate_stats.py
 
-      - name: commit if changed
+      - name: bust cache in README
+        # GitHub caches the *rendered profile page*, not just the image
+        # bytes -- a run that only changes the SVGs never touches
+        # README.md, so the page never re-renders and visitors keep
+        # seeing the old graphics indefinitely. See scripts/bust_cache.py.
         run: |
           FILES="assets/stats.svg assets/streak.svg assets/langs.svg assets/year.svg"
+          if [ -z "$(git status --porcelain -- $FILES)" ]; then
+            echo "no change, skipping"
+            exit 0
+          fi
+          python3 scripts/bust_cache.py "$GITHUB_SHA"
+
+      - name: commit if changed
+        run: |
+          FILES="assets/stats.svg assets/streak.svg assets/langs.svg assets/year.svg README.md"
           if [ -z "$(git status --porcelain -- $FILES)" ]; then
             echo "no change, skipping commit"
             exit 0
