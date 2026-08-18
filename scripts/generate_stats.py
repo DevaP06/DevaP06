@@ -29,9 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 FONT_REGULAR = ROOT / "fonts" / "subset" / "basic-latin-regular.woff2"
 FONT_SEMIBOLD = ROOT / "fonts" / "subset" / "basic-latin-semibold.woff2"
-FONT_RAMP = ROOT / "fonts" / "subset" / "ramp.woff2"
 
-RAMP = " .`:-=+*cs#%@"  # same 13-level ramp the portrait uses
 API_URL = "https://api.github.com/graphql"
 
 QUERY = """
@@ -268,12 +266,13 @@ def draw_langs(langs):
 
 
 def level_mapper(nonzero_counts, n):
-    """Map a day's count to a 1..n ramp level by where it falls in the
+    """Map a day's count to a 1..n shading level by where it falls in the
     observed distribution of active days, not linearly against the single
     peak day. A linear-to-peak scale means one big push day (say, 20
     commits) crushes every ordinary 1-3 commit day down to the faintest
-    glyph in the ramp -- which is exactly what made the grid unreadable:
-    almost everything is a real, active day, but almost nothing showed.
+    level available -- which is exactly what made the first version of
+    this grid unreadable: almost everything was a real, active day, but
+    almost nothing showed above the lightest shade.
     """
     if not nonzero_counts:
         return lambda c: 0
@@ -291,9 +290,15 @@ def level_mapper(nonzero_counts, n):
     return level
 
 
+# GitHub's own contribution-graph palette -- reused so the grid reads
+# instantly as "a contribution graph" rather than needing to be decoded.
+SQUARE_LIGHT = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]
+SQUARE_DARK = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+
+
 def draw_year(days):
-    # one ramp character per day, laid out the same way GitHub's own grid
-    # does: 7 rows (Sun..Sat) x N week-columns.
+    # one square per day, laid out the same way GitHub's own grid does:
+    # 7 rows (Sun..Sat) x N week-columns.
     if not days:
         days = []
     first_date = datetime.date.fromisoformat(days[0][0]) if days else datetime.date.today()
@@ -304,36 +309,39 @@ def draw_year(days):
     weeks = len(counts) // 7
 
     nonzero = [c for c in counts if c]
-    n = len(RAMP) - 1
-    level = level_mapper(nonzero, n)
+    levels = 4  # GitHub uses 4 non-empty shades
+    level = level_mapper(nonzero, levels)
 
-    def glyph(c):
-        return RAMP[level(c)]
-
-    grid = [[None] * weeks for _ in range(7)]
+    grid = [[0] * weeks for _ in range(7)]
     for idx, c in enumerate(counts):
-        grid[idx % 7][idx // 7] = glyph(c)
+        if c is not None:
+            grid[idx % 7][idx // 7] = level(c)
 
-    char_w = 10.0
-    row_h = char_w / 0.48
-    W = weeks * char_w
-    H = 7 * row_h
-    font_b64 = base64.b64encode(FONT_RAMP.read_bytes()).decode("ascii")
+    cell, gap = 10, 3
+    pitch = cell + gap
+    W = weeks * pitch - gap
+    H = 7 * pitch - gap
+
+    style = "".join(
+        f".lvl{i}{{fill:{SQUARE_LIGHT[i]};}}" for i in range(5)
+    ) + "@media (prefers-color-scheme: dark){" + "".join(
+        f".lvl{i}{{fill:{SQUARE_DARK[i]};}}" for i in range(5)
+    ) + "}"
+
     out = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W:.1f} {H:.1f}" '
-        f'width="{W:.0f}" height="{H:.0f}" role="img" aria-label="contribution grid, {len(days)} days">',
-        "<defs><style>",
-        "@font-face{font-family:'RampMono';src:url(data:font/woff2;base64,"
-        f"{font_b64}) format('woff2');font-weight:400;font-style:normal;}}",
-        f"text{{font-family:'RampMono',monospace;font-size:{char_w/0.6:.2f}px;"
-        f"fill:{theme.LIGHT_INK};white-space:pre;}}"
-        f"@media (prefers-color-scheme: dark){{text{{fill:{theme.DARK_INK};}}}}",
-        "</style></defs>",
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" '
+        f'width="{W}" height="{H}" role="img" aria-label="contribution grid, {len(days)} days, '
+        f'{sum(c or 0 for c in counts)} total">',
+        f"<defs><style>{style}</style></defs>",
     ]
-    for r in range(7):
-        row = "".join(g or RAMP[0] for g in grid[r])
-        y = (r + 1) * row_h - (row_h - char_w / 0.6) / 2
-        out.append(f'<text x="0" y="{y:.2f}" xml:space="preserve">{esc(row)}</text>')
+    for week in range(weeks):
+        for row in range(7):
+            idx = week * 7 + row
+            if idx >= len(counts) or counts[idx] is None:
+                continue  # padding before the first real day -- leave it out entirely
+            lvl = grid[row][week]
+            x, y = week * pitch, row * pitch
+            out.append(f'<rect class="lvl{lvl}" x="{x}" y="{y}" width="{cell}" height="{cell}" rx="2"/>')
     out.append("</svg>")
     return "\n".join(out)
 
