@@ -92,7 +92,7 @@ MLOps.
 
 <img src="assets/h-contrib.svg" width="340" alt="contribution graph" />
 
-<samp>One square per day for the last year, drawn by the same script that generates the stats above — no separate service.</samp>
+
 
 <div align="center">
 <img src="assets/year.svg?v=a793eeee" alt="contribution grid, one square per day for the last year" />
