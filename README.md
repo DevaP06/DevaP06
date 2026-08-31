@@ -77,15 +77,15 @@ MLOps.
 <samp>Drawn by <a href="scripts/generate_stats.py">a script in this repo</a> from the GraphQL API on a nightly schedule — no third-party image services.</samp>
 
 <div align="center">
-<img src="assets/stats.svg?v=a793eeee" width="460" alt="total contributions in the last year, with a weekly sparkline" />
+<img src="assets/stats.svg?v=b9fbc5e0" width="460" alt="total contributions in the last year, with a weekly sparkline" />
 
 <br><br>
 
-<img src="assets/streak.svg?v=a793eeee" width="460" alt="current streak and longest streak" />
+<img src="assets/streak.svg?v=b9fbc5e0" width="460" alt="current streak and longest streak" />
 
 <br><br>
 
-<img src="assets/langs.svg?v=a793eeee" width="460" alt="top languages by bytes and by repo" />
+<img src="assets/langs.svg?v=b9fbc5e0" width="460" alt="top languages by bytes and by repo" />
 </div>
 
 ---
@@ -95,7 +95,7 @@ MLOps.
 
 
 <div align="center">
-<img src="assets/year.svg?v=a793eeee" alt="contribution grid, one square per day for the last year" />
+<img src="assets/year.svg?v=b9fbc5e0" alt="contribution grid, one square per day for the last year" />
 </div>
 
 ---
